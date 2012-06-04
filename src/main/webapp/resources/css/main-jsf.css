@@ -1,0 +1,26 @@
+#banner {
+    background-image: url("#{resource['img:ball_banner.png']}");
+    height: 205px;
+}
+
+/*
+Fixes for bootstrap and JSF
+*/
+
+[class^="icon-"],
+[class*=" icon-"] {
+  background-image: url("#{resource['img:glyphicons-halflings.png']}");
+}
+
+.icon-white {
+  background-image: url("#{resource['img:glyphicons-halflings-white.png']}");
+}
+
+.gameBall_list {
+    height: 20px;
+    width: 20px;
+}
+
+.ballCarrier_list {
+    font-weight: bold;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+<body>
+<ui:composition template="/templates/default.xhtml">
+
+    <ui:define name="content">
+        <h2>Create a Game</h2>
+        <h:form>
+            <h:outputLabel value="Users" for="users"/>
+            <h:selectManyListbox id="users" value="#{createGameBean.users}">
+                <f:selectItems value="#{userList}" var="u" itemLabel="#{u.displayName}" />
+            </h:selectManyListbox>
+            <h:outputLabel value="Ball" for="ball"/>
+            <h:selectOneMenu id="ball" value="#{createGameBean.ball}">
+                <f:selectItems value="#{balls}" var="b" itemLabel="#{b.description}" />
+            </h:selectOneMenu>
+            <br/>
+            <h:commandButton value="Submit" action="#{createGameBean.createGame}"/>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<body>
+<ui:composition template="/templates/template.xhtml">
+
+    <ui:define name="title">The Ball Game</ui:define>
+
+    <ui:define name="navigation">
+        <ul class="nav">
+            <li class="#{view.viewId == '/index.xhtml' ? 'active' : ''}">
+                <a href="#{ctxRoot}/faces/index.xhtml">Home</a>
+            </li>
+            <li class="#{view.viewId == '/user/main.xhtml' ? 'active' : ''}">
+                <a href="#{ctxRoot}/faces/user/main.xhtml">User Main</a>
+            </li>
+            <li class="divider-vertical"/>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <ui:fragment rendered="#{request.isUserInRole(authenticationBean.adminRoleName)}">
+                <li class="divider-vertical"/>
+                <li class="#{view.viewId == '/admin/main.xhtml' ? 'active' : ''}">
+                    <a href="#{ctxRoot}/faces/admin/main.xhtml">Admin Main</a>
+                </li>
+                <li class="#{view.viewId == '/admin/users/list.xhtml' ? 'active' : ''}">
+                    <a href="#{ctxRoot}/faces/admin/users/list.xhtml">Users</a>
+                </li>
+                <li class="#{view.viewId == '/admin/games/list.xhtml' ? 'active' : ''}">
+                    <a href="#{ctxRoot}/faces/admin/games/list.xhtml">Games</a>
+                </li>
+            </ui:fragment>
+        </ul>
+    </ui:define>
+
+</ui:composition>
+</body>
+</html>

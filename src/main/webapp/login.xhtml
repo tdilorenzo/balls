@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core">
+<body>
+<ui:composition template="/templates/default.xhtml">
+
+    <ui:param name="isLoginPage" value="true" />
+
+    <ui:define name="content">
+        <h2>Login</h2>
+        <h:panelGroup>
+            <h:form id="loginForm_loginPage">
+                <h:outputLabel for="username" value="User:"/>
+                <h:inputText id="username" name="username" value="#{authenticationBean.username}"/>
+                <h:outputLabel for="password" value="Password:"/>
+                <h:inputSecret id="password" name="password" value="#{authenticationBean.password}"/>
+                <br/>
+                <h:commandButton value="Login" action="#{authenticationBean.login}" styleClass="btn"/>
+            </h:form>
+        </h:panelGroup>
+    </ui:define>
+    
+</ui:composition>
+</body>
+</html>

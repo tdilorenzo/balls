@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<ui:component>
+    <h:form id="gameTableForm" rendered="#{interactive}">
+        <div class="container-fluid">
+            <div class="span12">
+                <h2><h:outputText value="#{gameTable_title}"/></h2>
+            </div>
+            <ui:repeat value="#{gameList}" var="game">
+                <div class="row-fluid">
+                    <div class="span12 well">
+                        <div class="span4">
+                            ID: <h:outputText value="#{game.id}"/><br/>
+                            Round# <h:outputText value="#{game.round}"/><br/>
+                            Start: <h:outputText value="#{game.startTime}">
+                                <f:convertDateTime dateStyle="short" timeZone="EST" type="both" />
+                            </h:outputText><br/>
+                            End: <h:outputText value="#{game.endTime}">
+                                <f:convertDateTime dateStyle="short" timeZone="EST" type="both" />
+                            </h:outputText>
+                        </div>
+                        <div class="span4">
+                            <ul class="nav nav-pills nav-stacked">
+                                <ui:repeat value="#{game.usersAsList}" var="user">
+                                    <li class="#{user.username == game.ballCarrier ? 'active' : ''}">
+                                        <h:outputLink value="#">#{user.displayName}
+                                            <h:graphicImage library="img" name="#{game.gameBall.image}"
+                                                            styleClass="gameBall_list pull-right"
+                                                            rendered="#{user.username == game.ballCarrier}"
+                                                            title="#{game.gameBall.description}" />
+                                        </h:outputLink>
+                                    </li>
+                                </ui:repeat>
+                            </ul>
+                        </div>
+                        <div class="btn-group span4">
+                            <h:commandButton styleClass="btn btn-danger" value="quit"
+                                             action="#{gameActionBean.quit(game)}"
+                                             rendered="#{interactive}"
+                                    />
+                            <h:commandButton styleClass="btn btn-primary" value="pass"
+                                             action="#{gameActionBean.pass(game)}"
+                                             rendered="#{currentUser.username == game.ballCarrier}"
+                                    />
+                        </div>
+                    </div>
+                </div>
+            </ui:repeat>
+        </div>
+    </h:form>
+    <h:dataTable value="#{gameList}" var="g" rendered="#{not interactive}">
+        <f:facet name="header">
+            <h:outputText value="#{gameTable_title}"/>
+        </f:facet>
+        <h:column>
+            <f:facet name="header">Game Id</f:facet>
+            <h:outputText value="#{g.id}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header">Start</f:facet>
+            <h:outputText value="#{g.startTime}">
+                <f:convertDateTime dateStyle="short" timeZone="EST" type="both" />
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Round</f:facet>
+            <h:outputText value="#{g.round}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header">End</f:facet>
+            <h:outputText value="#{g.endTime}">
+                <f:convertDateTime dateStyle="short" timeZone="EST" type="both" />
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">BallCarrier</f:facet>
+            <h:outputText value="#{g.ballCarrier}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">GameBall</f:facet>
+            <h:outputText value="#{g.gameBall.ballType}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Users</f:facet>
+            <ul>
+                <ui:repeat value="#{g.usersAsList}" var="user" varStatus="iter">
+                    <li>
+                        <h:outputText value="#{user.displayName}"
+                                      styleClass="#{user.username == g.ballCarrier ? 'ballCarrier_list' : ''}"/>
+                    </li>
+                </ui:repeat>
+            </ul>
+        </h:column>
+    </h:dataTable>
+</ui:component>
+</html>

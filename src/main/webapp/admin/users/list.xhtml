@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+<body>
+<ui:composition template="/templates/default.xhtml">
+
+    <ui:define name="content">
+        <rich:dataTable value="#{userList}" var="usr">
+            <f:facet name="header">
+                <h:outputText value="User List"/>
+            </f:facet>
+            <rich:column>
+                <f:facet name="header">DisplayName</f:facet>
+                <h:outputText value="#{usr.displayName}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Username</f:facet>
+                <h:outputText value="#{usr.username}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Password</f:facet>
+                <h:outputText value="#{usr.password}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">PasswordHash</f:facet>
+                <h:outputText value="#{usr.passwordHash}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Roles</f:facet>
+                <rich:list value="#{usr.roles.setToList}" var="role" rendered="#{not empty usr.roles}">
+                    <h:outputText value="#{role.roleName}" />
+                    [<h:outputText value="#{role.roleGroup}" />]
+                </rich:list>
+            </rich:column>
+        </rich:dataTable>
+        <h:outputLink value="create.xhtml"><h:outputText value="Create" /></h:outputLink>
+    </ui:define>
+
+</ui:composition>
+</body>
+</html>

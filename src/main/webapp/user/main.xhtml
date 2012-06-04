@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+<body>
+<ui:composition template="/templates/default.xhtml">
+
+    <ui:define name="content">
+        <h1>User Area Main</h1>
+        <ui:include src="/resources/gameTable.xhtml">
+            <ui:param name="gameList" value="#{myGamesList}"/>
+            <ui:param name="gameTable_title" value="My Games"/>
+            <ui:param name="interactive" value="true"/>
+        </ui:include>
+
+        <h:form id="prodForm">
+            <h:panelGrid>
+                <h:outputText id="uid" value="uid: #{gameActionPushBean.userIdentifier}"/>
+                <h:inputText id="msg" value="#{gameActionPushBean.message}"/>
+                <a4j:commandButton id="sendMsg"
+                                   execute="@form"
+                                   value="send"
+                                   action="#{gameActionPushBean.sendMessage}"
+                                   oncomplete="#{rich:element('msg')}.value=''"/>
+            </h:panelGrid>
+        </h:form>
+
+        <h:form id="conForm">
+            <rich:panel style="width:150px" header="messages">
+                <script type="text/javascript">
+                    <![CDATA[
+                    function foo(bar){
+                       jQuery('<li />').prependTo('#messages').text(bar);
+                    }
+                    ]]>
+                </script>
+                <a4j:push id="consumer"
+                          address="#{param['uid']}@pushCdi"
+                          onerror="alert(event.rf.data)"
+                          ondataavailable="foo(event.rf.data)"/>
+                <ul id="messages"/>
+            </rich:panel>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+</body>
+</html>

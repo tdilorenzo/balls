@@ -1,0 +1,16 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# IntelliJ Files #
+*.iml
+*.ids
+*.ipr
+*.iws
+
+# Maven built files #
+target/*
+readme.txt

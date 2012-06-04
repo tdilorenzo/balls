@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <!-- Set the PROJECT_STAGE to 'Development' to receive constructive error messages during development.
+  Change the PROJECT_STAGE to 'Production' when putting the application into production -->
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+
+    <context-param>
+        <description>
+            Force JSF to save view state on the client, so views can be restored after server reboots.
+        </description>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>client</param-value>
+    </context-param>
+
+    <context-param>
+        <description>
+            Enable JSF 1.1 like restoreViewCompatibility (no viewExpiredException)
+        </description>
+        <param-name>com.sun.faces.enableRestoreView11Compatibility</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
+        <description>
+            JMS API was found on the classpath;
+            If you want to enable RichFaces Push JMS integration,
+            set context-param 'org.richfaces.push.jms.enabled' in web.
+        </description>
+        <param-name>org.richfaces.push.jms.enabled</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>org.richfaces.ExcludeScripts</param-name>
+        <param-value>jQuery</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.LoadStyleStrategy</param-name>
+        <param-value>NONE</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.SKIN</param-name>
+        <param-value>plain</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.enableControlSkinning</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.enableControlSkinningClasses</param-name>
+        <param-value>false</param-value>
+    </context-param>
+
+    <!-- add a welcome-file-list entry to allow JSF pages to be sued as welcome files -->
+    <welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list>
+
+    <persistence-unit-ref>
+        <persistence-unit-ref-name>ballGamePu/pu</persistence-unit-ref-name>
+        <persistence-unit-name>ballGamePu</persistence-unit-name>
+    </persistence-unit-ref>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>admin_area</web-resource-name>
+            <url-pattern>/faces/admin/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>BALLGAME_ADMIN</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>user_area</web-resource-name>
+            <url-pattern>/faces/user/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>BALLGAME_USER</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>ballGame</realm-name>
+        <form-login-config>
+            <form-login-page>/faces/login.xhtml</form-login-page>
+            <form-error-page>/faces/error.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+
+    <security-role>
+        <role-name>BALLGAME_USER</role-name>
+    </security-role>
+
+    <security-role>
+        <role-name>BALLGAME_ADMIN</role-name>
+    </security-role>
+
+</web-app>

@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+<body>
+<ui:composition template="/templates/default.xhtml">
+
+    <ui:define name="content">
+        <h2>Create a User</h2>
+        <h:form>
+            <h:outputLabel value="Username" for="username"/>
+            <h:inputText id="username" value="#{createUserBean.username}"/>
+            <h:outputLabel value="Password" for="password"/>
+            <h:inputText id="password" value="#{createUserBean.password}"/>
+            <h:outputLabel value="Display Name" for="displayName"/>
+            <h:inputText id="displayName" value="#{createUserBean.displayName}"/>
+            <br/>
+            <h:commandButton value="Submit" action="#{createUserBean.createUser}"/>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+</body>
+</html>
