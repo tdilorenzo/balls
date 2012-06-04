@@ -79,6 +79,7 @@ public class Game implements Serializable {
     }
 
     @Transient
+    @SuppressWarnings("unchecked")
     public List<User> getUsersAsList(){
         ArrayList<User> list;
         list = new ArrayList<User>(getUsers());

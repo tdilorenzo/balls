@@ -3,16 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-  <groupId>balls</groupId>
-  <artifactId>balls</artifactId>
-  <packaging>war</packaging>
-  <version>1.0</version>
-  <name>balls</name>
-  
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
+    <groupId>balls</groupId>
+    <artifactId>balls</artifactId>
+    <packaging>war</packaging>
+    <version>1.0</version>
+    <name>balls</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
         <weld.extensions.version>1.0.0-CR2</weld.extensions.version>
         <log4j.version>1.2.16</log4j.version>
         <seam3.solder.version>3.1.1.Final</seam3.solder.version>
@@ -58,8 +58,8 @@
                 <scope>import</scope>
             </dependency>
         </dependencies>
-    </dependencyManagement>    
-    
+    </dependencyManagement>
+
     <dependencies>
         <!-- Java EE 6 -->
         <dependency>
@@ -82,21 +82,21 @@
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        
+
         <!-- Common annotations (e.g., @PostConstruct, @PreDestroy, @Generated, @Resource) -->
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>jsr250-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        
+
         <!-- Bean Validation (JSR-303) -->
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        
+
         <!-- Bean Validation Implementation -->
         <!-- Provides portable constraints such as @NotEmpty, @Email and @Url -->
         <!-- Hibernate Validator is only the JSR-303 implementation at the moment, so we can assume it's provided -->
@@ -106,20 +106,30 @@
             <version>4.0.0.GA</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <!-- Seam 3 -->
+        <dependency>
+            <groupId>org.jboss.solder</groupId>
+            <artifactId>solder-logging</artifactId>
+            <version>${seam3.solder.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.solder</groupId>
+            <artifactId>solder-api</artifactId>
+            <version>${seam3.solder.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.jboss.solder</groupId>
             <artifactId>solder-impl</artifactId>
             <version>${seam3.solder.version}</version>
         </dependency>
-        
+
         <dependency>
-          <groupId>org.jboss.spec</groupId>
-          <artifactId>jboss-javaee-6.0</artifactId>
-          <version>1.0.0.Final</version>
-          <type>pom</type>
-          <scope>provided</scope>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-6.0</artifactId>
+            <version>1.0.0.Final</version>
+            <type>pom</type>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -127,7 +137,7 @@
             <artifactId>jboss-sasl</artifactId>
             <version>1.0.1.Final</version>
         </dependency>
-        
+
         <!-- EJB -->
         <dependency>
             <groupId>org.jboss.ejb3</groupId>
@@ -135,7 +145,7 @@
             <scope>provided</scope>
             <version>3.1.0</version>
         </dependency>
-        
+
         <!-- JAX-RS API-->
         <dependency>
             <groupId>org.jboss.spec.javax.ws.rs</groupId>
@@ -143,7 +153,7 @@
             <version>1.0.1.Final</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <!-- JSF -->
         <dependency>
             <groupId>javax.faces</groupId>
@@ -180,7 +190,7 @@
             <version>3.2</version>
         </dependency>
         -->
-        
+
         <!-- RichFaces -->
         <dependency>
             <groupId>org.richfaces.core</groupId>
@@ -192,7 +202,7 @@
             <artifactId>richfaces-components-ui</artifactId>
             <version>${richfaces.version}</version>
         </dependency>
-        
+
         <!-- SeamFaces
         <dependency>
             <groupId>org.jboss.seam.faces</groupId>
@@ -247,30 +257,30 @@
             </exclusions>
         </dependency>-->
     </dependencies>
-    
+
     <profiles>
-    <profile>
-     <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. -->
-     <!-- Use this profile for any OpenShift specific customization your app will need. -->
-     <!-- By default that is to put the resulting archive into the 'deployments' folder. -->
-     <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
-     <id>openshift</id>
-     <build>
-        <finalName>balls</finalName>
-        <plugins>
-          <plugin>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>2.1.1</version>
-            <configuration>
-              <outputDirectory>deployments</outputDirectory>
-              <warName>ROOT</warName>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
-  
+        <profile>
+            <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. -->
+            <!-- Use this profile for any OpenShift specific customization your app will need. -->
+            <!-- By default that is to put the resulting archive into the 'deployments' folder. -->
+            <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+            <id>openshift</id>
+            <build>
+                <finalName>balls</finalName>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.1.1</version>
+                        <configuration>
+                            <outputDirectory>deployments</outputDirectory>
+                            <warName>ROOT</warName>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
