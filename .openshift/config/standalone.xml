@@ -93,8 +93,8 @@
                     <connection-url>jdbc:mysql://${env.OPENSHIFT_DB_HOST}:${env.OPENSHIFT_DB_PORT}/${env.OPENSHIFT_GEAR_NAME}</connection-url>
                     <driver>mysql</driver>
                     <security>
-                        <user-name>ballgame</user-name>
-                        <password>ballgame</password>
+                      <user-name>${env.OPENSHIFT_DB_USERNAME}</user-name>
+                      <password>${env.OPENSHIFT_DB_PASSWORD}</password>
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/datasources/ExampleDS" enabled="true" use-java-context="true" pool-name="H2DS">
