@@ -57,6 +57,15 @@
         <param-name>org.richfaces.enableControlSkinningClasses</param-name>
         <param-value>false</param-value>
     </context-param>
+    
+    <servlet>
+                  <servlet-name>health</servlet-name>
+                  <jsp-file>/health.jsp</jsp-file>
+         </servlet>
+         <servlet-mapping>
+                  <servlet-name>health</servlet-name>
+                  <url-pattern>/health</url-pattern>
+         </servlet-mapping>
 
     <!-- add a welcome-file-list entry to allow JSF pages to be sued as welcome files -->
     <welcome-file-list>
