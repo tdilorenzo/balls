@@ -89,6 +89,14 @@
         <subsystem xmlns="urn:jboss:domain:configadmin:1.0"/>
         <subsystem xmlns="urn:jboss:domain:datasources:1.0">
             <datasources>
+                <datasource jndi-name="java:jboss/datasources/BallGame" pool-name="ballGame-pool" enabled="true" use-java-context="true">
+                    <connection-url>jdbc:mysql://${env.OPENSHIFT_DB_HOST}:${env.OPENSHIFT_DB_PORT}/${env.OPENSHIFT_GEAR_NAME}</connection-url>
+                    <driver>mysql</driver>
+                    <security>
+                        <user-name>ballgame</user-name>
+                        <password>ballgame</password>
+                    </security>
+                </datasource>
                 <datasource jndi-name="java:jboss/datasources/ExampleDS" enabled="true" use-java-context="true" pool-name="H2DS">
                     <connection-url>jdbc:h2:${jboss.server.data.dir}/test;DB_CLOSE_DELAY=-1</connection-url>
                     <driver>h2</driver>
@@ -435,6 +443,17 @@
         <subsystem xmlns="urn:jboss:domain:sar:1.0"/>
         <subsystem xmlns="urn:jboss:domain:security:1.1">
             <security-domains>
+                <security-domain name="ballGame">
+                    <authentication>
+                        <login-module code="Database" flag="required">
+                            <module-option name="dsJndiName" value="java:jboss/datasources/BallGame"/>
+                            <module-option name="rolesQuery" value="select role_name, 'Roles' from User_Roles where username=?"/>
+                            <module-option name="principalsQuery" value="select password from users where username=?"/>
+                            <module-option name="hashUserPassword" value="false"/>
+                            <module-option name="hashStorePassword" value="false"/>
+                        </login-module>
+                    </authentication>
+                </security-domain>
                 <security-domain name="other" cache-type="default">
                     <authentication>
                         <login-module code="UsersRoles" flag="required"/>
