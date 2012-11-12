@@ -6,7 +6,7 @@ import java.util.*;
 
 import static javax.persistence.CascadeType.DETACH;
 import static javax.persistence.CascadeType.REMOVE;
-import static javax.persistence.FetchType.*;
+import static javax.persistence.FetchType.EAGER;
 
 @Entity
 public class Game implements Serializable {
@@ -18,7 +18,6 @@ public class Game implements Serializable {
     private Ball gameBall;
     private Set<User> users;
     private int round;
-    private String lastMessage;
 
     @Id
     @GeneratedValue
@@ -80,6 +79,7 @@ public class Game implements Serializable {
     }
 
     @Transient
+    @SuppressWarnings("unchecked")
     public List<User> getUsersAsList(){
         ArrayList<User> list;
         list = new ArrayList<User>(getUsers());
@@ -93,13 +93,5 @@ public class Game implements Serializable {
 
     public void setRound(int round) {
         this.round = round;
-    }
-
-    public String getLastMessage() {
-        return lastMessage;
-    }
-
-    public void setLastMessage(String lastMessage) {
-        this.lastMessage = lastMessage;
     }
 }
