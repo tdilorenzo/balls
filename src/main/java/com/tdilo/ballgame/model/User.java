@@ -8,7 +8,7 @@ import java.util.Set;
 
 import static javax.persistence.CascadeType.DETACH;
 import static javax.persistence.CascadeType.REMOVE;
-import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.FetchType.*;
 
 @Entity
 @Table(name = "Users")

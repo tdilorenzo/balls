@@ -21,7 +21,7 @@
     <![endif]-->
     ]]>
 
-    <h:outputScript library="js" name="jquery-1.7.1.min.js" target="head"/>
+    <!--<h:outputScript library="js" name="jquery-1.7.1.min.js" target="head"/>-->
     <h:outputScript library="js" name="modernizr-2.5.3.min.js" target="head"/>
     <h:outputScript library="js" name="knockout-2.1.0.js" target="head"/>
 
@@ -37,6 +37,8 @@
 
     <ui:param name="loggedIn" value="#{c_loggedIn}"/>
     <ui:param name="ctxRoot" value="#{c_ctxRoot}"/>
+
+    <rich:tooltip id="foo" value="foo"/>
 
     <h:form id="logoutForm_navBar">
         <div class="navbar">
@@ -92,6 +94,24 @@
                 <div class="well sidebar-nav">
                     <ul class="nav nav-list">
                         <li class="nav-header">BallGame Sidebar</li>
+                        <li>
+                            <h:form>
+                                <h:commandLink value="Start a Game"
+                                               action="#{createGameWizard.start}"
+                                               disabled="#{not createGameWizard.startable}"
+                                        />
+                                <ui:repeat value="#{createGameWizard.views}" var="currentView" varStatus="status" rendered="#{not createGameWizard.startable}">
+                                    <c:set var="index" value="#{status.index}"/>
+                                    <c:set var="name" value="#{currentView.name}"/>
+                                    <c:set var="available" value="#{currentView.available}"/>
+                                    <br/>
+                                    <h:commandLink value="#{index + 1} #{name}"
+                                                   action="#{createGameWizard.getViewAt(index)}"
+                                                   rendered="#{available}"/>
+                                    <h:outputText value="#{index + 1} #{name}" rendered="#{not available}"/>
+                                </ui:repeat>
+                            </h:form>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -119,5 +139,9 @@
     </div>
     <ui:debug/>
     <!--<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>-->
+    <a title="Real Time Web Analytics" href="http://getclicky.com/100547489"><img alt="Real Time Web Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(100547489); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100547489ns.gif" /></p></noscript>
 </h:body>
 </html>

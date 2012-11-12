@@ -17,7 +17,7 @@ import javax.naming.NamingException;
 @FacesConverter(forClass = User.class)
 public class UserConverter implements Converter {
 
-    public static final Logger log = Logger.getLogger(UserConverter.class);
+    private static final Logger log = Logger.getLogger(UserConverter.class);
 
     private BeanManager getBeanManager() {
         try {

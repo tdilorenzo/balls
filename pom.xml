@@ -16,7 +16,7 @@
         <log4j.version>1.2.16</log4j.version>
         <seam3.solder.version>3.1.1.Final</seam3.solder.version>
         <seamfaces.version>3.1.0.Final</seamfaces.version>
-        <richfaces.version>4.2.2.Final</richfaces.version>
+        <org.richfaces.bom.version>4.2.2.Final</org.richfaces.bom.version>
         <myfaces.version>2.1.7</myfaces.version>
     </properties>
 
@@ -56,11 +56,23 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-bom</artifactId>
+                <version>${org.richfaces.bom.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
         <!-- Java EE 6 -->
+        <dependency>
+            <groupId>org.hibernate.common</groupId>
+            <artifactId>hibernate-commons-annotations</artifactId>
+            <version>4.0.1.Final</version>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -184,12 +196,14 @@
         <dependency>
             <groupId>org.richfaces.core</groupId>
             <artifactId>richfaces-core-impl</artifactId>
-            <version>${richfaces.version}</version>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui</groupId>
             <artifactId>richfaces-components-ui</artifactId>
-            <version>${richfaces.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.atmosphere</groupId>
+            <artifactId>atmosphere-runtime</artifactId>
         </dependency>
 
         <!-- SeamFaces

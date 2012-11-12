@@ -11,6 +11,7 @@
         <param-value>Development</param-value>
     </context-param>
 
+    <!--
     <context-param>
         <description>
             Force JSF to save view state on the client, so views can be restored after server reboots.
@@ -26,7 +27,32 @@
         <param-name>com.sun.faces.enableRestoreView11Compatibility</param-name>
         <param-value>true</param-value>
     </context-param>
+    -->
 
+    <context-param>
+        <param-name>org.richfaces.push.jms.disable</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.atmosphere.useBlocking</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.push.handlerMapping</param-name>
+        <param-value>/__richfaces_push</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>Push Servlet</servlet-name>
+        <servlet-class>org.richfaces.webapp.PushServlet</servlet-class> 
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Push Servlet</servlet-name>
+        <url-pattern>/__richfaces_push</url-pattern>
+    </servlet-mapping>
+
+    <!--
     <context-param>
         <description>
             JMS API was found on the classpath;
@@ -36,11 +62,12 @@
         <param-name>org.richfaces.push.jms.enabled</param-name>
         <param-value>true</param-value>
     </context-param>
+    -->
 
-    <context-param>
+    <!--<context-param>
         <param-name>org.richfaces.ExcludeScripts</param-name>
         <param-value>jQuery</param-value>
-    </context-param>
+    </context-param>-->
     <context-param>
         <param-name>org.richfaces.LoadStyleStrategy</param-name>
         <param-value>NONE</param-value>

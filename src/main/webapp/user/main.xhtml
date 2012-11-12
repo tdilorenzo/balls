@@ -11,40 +11,20 @@
 
     <ui:define name="content">
         <h1>User Area Main</h1>
-        <ui:include src="/resources/gameTable.xhtml">
-            <ui:param name="gameList" value="#{myGamesList}"/>
-            <ui:param name="gameTable_title" value="My Games"/>
-            <ui:param name="interactive" value="true"/>
-        </ui:include>
-
-        <h:form id="prodForm">
-            <h:panelGrid>
-                <h:outputText id="uid" value="uid: #{gameActionPushBean.userIdentifier}"/>
-                <h:inputText id="msg" value="#{gameActionPushBean.message}"/>
-                <a4j:commandButton id="sendMsg"
-                                   execute="@form"
-                                   value="send"
-                                   action="#{gameActionPushBean.sendMessage}"
-                                   oncomplete="#{rich:element('msg')}.value=''"/>
-            </h:panelGrid>
-        </h:form>
-
-        <h:form id="conForm">
-            <rich:panel style="width:150px" header="messages">
-                <script type="text/javascript">
-                    <![CDATA[
-                    function foo(bar){
-                       jQuery('<li />').prependTo('#messages').text(bar);
-                    }
-                    ]]>
-                </script>
-                <a4j:push id="consumer"
-                          address="#{param['uid']}@pushCdi"
-                          onerror="alert(event.rf.data)"
-                          ondataavailable="foo(event.rf.data)"/>
-                <ul id="messages"/>
-            </rich:panel>
-        </h:form>
+        <a4j:outputPanel id="myGames_a4j">
+            <ui:include src="/resources/gameTable.xhtml">
+                <ui:param name="gameList" value="#{myGamesList}"/>
+                <ui:param name="gameTable_title" value="My Games"/>
+                <ui:param name="interactive" value="true"/>
+            </ui:include>
+        </a4j:outputPanel>
+        
+        <script type="text/javascript">
+            function foo(event){
+                alert(event);
+                debugger;
+            }
+        </script>
 
     </ui:define>
 

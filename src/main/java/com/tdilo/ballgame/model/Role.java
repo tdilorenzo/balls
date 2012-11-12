@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 import static javax.persistence.CascadeType.DETACH;
-import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.FetchType.*;
 
 @Entity
 @Table(name="Roles")
@@ -37,7 +37,7 @@ public class Role implements Serializable {
         this.roleGroup = roleGroup;
     }
 
-    @ManyToMany(fetch = LAZY, cascade = DETACH)
+    @ManyToMany(fetch = EAGER, cascade = DETACH)
     @JoinTable(name="User_Roles",
                joinColumns = {@JoinColumn(name="role_name")},
                inverseJoinColumns = {@JoinColumn(name="username")

@@ -25,8 +25,10 @@ insert into User_Roles(username, role_name) values ('user2'     , 'BALLGAME_USER
 insert into Game(id, ball_carrier, gameBall_id, start_time, round, end_time) values (1, 'tdilorenzo', 1, sysdate(), 1, null);
 insert into User_Games(game_id, username) values (1, 'tdilorenzo');
 insert into User_Games(game_id, username) values (1, 'lholmquist');
-insert into User_Games(game_id, username) values (1, 'dluck');
+--insert into User_Games(game_id, username) values (1, 'dluck');
 
 insert into Game(id, ball_carrier, gameBall_id, start_time, round,  end_time) values (2, 'user1', 2, sysdate(), 1, null);
 insert into User_Games(game_id, username) values (2, 'user1');
 insert into User_Games(game_id, username) values (2, 'user2');
+
+update hibernate_sequence set next_val = 100;

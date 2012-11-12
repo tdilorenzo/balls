@@ -13,13 +13,12 @@ import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import static com.tdilo.ballgame.model.Role.BALLGAME_ADMIN_ROLE;
-
 
 @Model
 public class AuthenticationBean {
 
-    public static final Logger log = Logger.getLogger(AuthenticationBean.class);
+    private static final String REDIRECT = "?faces-redirect=true";
+    private static final Logger log = Logger.getLogger(AuthenticationBean.class);
 
     @Inject
     HttpServletRequest httpServletRequest;
@@ -42,18 +41,18 @@ public class AuthenticationBean {
         if (httpServletRequest.getUserPrincipal() != null) {
             User user = userService.getWithGames(username);
             onLogin.fire(user);
-            if (httpServletRequest.isUserInRole(BALLGAME_ADMIN_ROLE))
-                return "/admin/main";
-            else
-                return "/user/main";
+            //if (httpServletRequest.isUserInRole(BALLGAME_ADMIN_ROLE))
+            //    return "/admin/main";
+            //else
+            return "/user/main" + REDIRECT;
         }
-        return "/index";
+        return "/index" + REDIRECT;
     }
 
     public String logout() throws ServletException {
         httpServletRequest.logout();
         onLogout.fire("");
-        return "/index";
+        return "/index" + REDIRECT;
     }
 
     public String getUsername() {

@@ -1,5 +1,6 @@
 package com.tdilo.ballgame;
 
+import org.apache.log4j.Logger;
 import org.richfaces.cdi.push.Push;
 
 import javax.enterprise.context.RequestScoped;
@@ -13,14 +14,26 @@ import javax.inject.Named;
 @Named
 @RequestScoped
 public class PushBean {
-    public static final String PUSH_CDI_TOPIC = "pushCdi";
+
+    private static final Logger log = Logger.getLogger(PushBean.class);
+
+    public static final String CDI_TOPIC = "smudge";
+
+    public String getCdiTopic() {
+        return CDI_TOPIC;
+    }
+
     private String message;
-    @Inject @Push(topic = PUSH_CDI_TOPIC) Event<String> pushEvent;
+
+    @Inject
+    @Push(topic = CDI_TOPIC)
+    Event<String> pushEvent;
 
     /**
      * Sends message.      *      * @param message to send
      */
     public void sendMessage() {
+        log.info("pushing message " + message);
         pushEvent.fire(message);
         message = "";
     }

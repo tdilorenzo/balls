@@ -21,13 +21,13 @@ public class SecurityManager implements Serializable {
         return currentUser;
     }
 
-    @Login
-    public void onLogin(@Observes User user){
+
+    public void onLogin(@Observes @Login User user){
         currentUser = user;
     }
 
-    @Logout
-    public void onLogout(@Observes String foo){
+
+    public void onLogout(@Observes @Logout String foo){
         currentUser = null;
     }
 }

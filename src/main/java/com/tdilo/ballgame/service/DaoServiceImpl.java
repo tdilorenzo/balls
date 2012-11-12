@@ -14,7 +14,7 @@ import java.util.Set;
 
 public abstract class DaoServiceImpl<E, K> implements DaoService<E, K> {
 
-    public static final Logger log = Logger.getLogger(DaoServiceImpl.class);
+    private static final Logger log = Logger.getLogger(DaoServiceImpl.class);
     
     private Class entityClass;
     private String idProperty;

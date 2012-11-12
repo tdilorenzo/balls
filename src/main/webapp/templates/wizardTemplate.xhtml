@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<body>
+
+<ui:composition template="/templates/default.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <ui:repeat value="#{createGameWizard.views}" var="currentView" varStatus="status">
+                <c:set var="index" value="#{status.index}"/>
+                <c:set var="name" value="#{currentView.name}"/>
+                <c:set var="available" value="#{currentView.available}"/>
+                <h:commandLink value="#{index + 1} #{name}" action="#{createGameWizard.getViewAt(index)}"
+                               rendered="#{available}"/>
+                <h:outputText value="#{index + 1} #{name}" rendered="#{not available}"/>
+                <h:outputText value=" -&gt; "/>
+            </ui:repeat>
+            <div>
+                <ui:insert name="stepBody"/>
+            </div>
+            <h:commandButton value="Previous" action="#{createGameWizard.previous}" disabled="#{createGameWizard.first}"/>
+            <h:commandButton value="Next" action="#{createGameWizard.next}" disabled="#{createGameWizard.last}"/>
+            <h:commandButton value="Finish" action="#{createGameWizard.finish}" disabled="#{not createGameWizard.last}"/>
+            <h:commandButton value="Cancel" action="#{createGameWizard.cancel}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</body>
+</html>

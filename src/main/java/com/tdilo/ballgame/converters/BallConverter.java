@@ -17,7 +17,7 @@ import javax.naming.NamingException;
 @FacesConverter(forClass = Ball.class)
 public class BallConverter implements Converter {
 
-    public static final Logger log = Logger.getLogger(BallConverter.class);
+    private static final Logger log = Logger.getLogger(BallConverter.class);
 
     private BeanManager getBeanManager() {
         try {

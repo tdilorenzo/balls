@@ -4,6 +4,7 @@ import com.tdilo.ballgame.model.Ball;
 import com.tdilo.ballgame.model.Game;
 import com.tdilo.ballgame.model.User;
 import com.tdilo.ballgame.service.DaoServiceImpl;
+import org.apache.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,6 +15,8 @@ import java.util.*;
 @Stateless
 public class DbGameServiceImpl extends DaoServiceImpl<Game, Long> implements GameService {
 
+    private static final Logger log = Logger.getLogger(DbGameServiceImpl.class);
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -23,7 +26,7 @@ public class DbGameServiceImpl extends DaoServiceImpl<Game, Long> implements Gam
     }
 
     @Override
-    public void createGame(User[] userArray, Ball ball) {
+    public Game createGame(User[] userArray, Ball ball) {
         Game game = new Game();
         game.setStartTime(new Date());
         game.setRound(1);
@@ -38,6 +41,7 @@ public class DbGameServiceImpl extends DaoServiceImpl<Game, Long> implements Gam
         game.setBallCarrier(ballCarrier);
 
         super.save(game);
+        return game;
     }
 
     @Override
@@ -49,6 +53,9 @@ public class DbGameServiceImpl extends DaoServiceImpl<Game, Long> implements Gam
 
     @Override
     public void pass(Game game, User from, User to) {
+        String message = "Round#" + game.getRound() + ": " + from.getUsername() + " passes to " + to.getUsername();
+        log.info(message);
+        game.setLastMessage(message);
         game.setBallCarrier(to.getUsername());
         game.setRound(game.getRound() + 1);
         super.merge(game);
